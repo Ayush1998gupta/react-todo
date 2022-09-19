@@ -1,19 +1,18 @@
 import React from 'react';
 import Todo from './Todo';
 
-export default function TodoList() {
+export default function TodoList(props) {
   return (
-    <div>
-      <section className="container2">
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-        <Todo />
-      </section>
-    </div>
+    <section className="container2">
+      {props.lists.map((list) => (
+        <Todo
+          key={list.id}
+          title={list.title}
+          id={list.id}
+          userId={list.userId}
+          completed={list.completed}
+        />
+      ))}
+    </section>
   );
 }
