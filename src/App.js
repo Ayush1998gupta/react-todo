@@ -39,7 +39,6 @@ function App() {
 
   useEffect(() => {
     fetchsetListsHandler();
-    console.log('ayush');
   }, [fetchsetListsHandler]);
 
   // DELETE request
@@ -49,6 +48,28 @@ function App() {
     });
     setLists(lists.filter((item) => item.id !== list.id));
   };
+
+  // POST request
+  async function addListsHandler(list) {
+    try {
+      const response = await fetch(
+        'https://jsonplaceholder.typicode.com/todos',
+        {
+          method: 'POST',
+          body: JSON.stringify(list),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        }
+      );
+      const data = await response.json();
+      setLists((prevList) => {
+        return [data, ...prevList];
+      });
+    } catch (error) {
+      setError(error.message);
+    }
+  }
 
   let content = <p>Found no Albums.</p>;
 
@@ -67,7 +88,7 @@ function App() {
   return (
     <React.Fragment>
       <h1>Todo App</h1>
-      <AddTodos />
+      <AddTodos onAddLists={addListsHandler} />
       <section>{content}</section>
     </React.Fragment>
   );
