@@ -27,7 +27,7 @@ function App() {
           id: ListsData.id,
           title: ListsData.title,
           userId: ListsData.userId,
-          completed:ListsData.completed
+          completed: ListsData.completed,
         };
       });
       setLists(transformedLists);
@@ -39,16 +39,21 @@ function App() {
 
   useEffect(() => {
     fetchsetListsHandler();
+    console.log('ayush');
   }, [fetchsetListsHandler]);
+
+  // DELETE request
+  const deleteListHandler = (list) => {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${list.id}`, {
+      method: 'DELETE',
+    });
+    setLists(lists.filter((item) => item.id !== list.id));
+  };
 
   let content = <p>Found no Albums.</p>;
 
   if (lists.length > 0) {
-    content = (
-      <TodoList
-        lists={lists}
-      />
-    );
+    content = <TodoList lists={lists} onDelete={deleteListHandler} />;
   }
 
   if (error) {
