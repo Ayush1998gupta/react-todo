@@ -71,10 +71,42 @@ function App() {
     }
   }
 
+  // PUT request
+  async function editListsHandler(list) {
+    try {
+      const response = await fetch(
+        `https://jsonplaceholder.typicode.com/todos/${list.id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(list),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        }
+      );
+      const data = await response.json();
+      handleUpdate(data.id - 1, data);
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
+  const handleUpdate = (index, todo) => {
+    const newTodos = [...lists];
+    newTodos[index] = todo;
+    setLists(newTodos);
+  };
+
   let content = <p>Found no Albums.</p>;
 
   if (lists.length > 0) {
-    content = <TodoList lists={lists} onDelete={deleteListHandler} />;
+    content = (
+      <TodoList
+        lists={lists}
+        onDelete={deleteListHandler}
+        onEdit={editListsHandler}
+      />
+    );
   }
 
   if (error) {
