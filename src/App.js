@@ -97,8 +97,10 @@ function App() {
     setLists(newTodos);
   };
 
+  // content for display the fetch items
   let content = <p>Found no Albums.</p>;
 
+  
   if (lists.length > 0) {
     content = (
       <TodoList
@@ -119,8 +121,13 @@ function App() {
 
   return (
     <React.Fragment>
+      {/* Heading */}
       <h1>Todo App</h1>
+
+      {/* component for adding the todo */}
       <AddTodos onAddLists={addListsHandler} />
+
+      {/* for loding and fetching component */}
       <section>{content}</section>
     </React.Fragment>
   );

@@ -7,6 +7,7 @@ export default function AddTodos(props) {
     setEnteredTitle(e.target.value);
   };
 
+  // adding the todo function
   function submitHandler(event) {
     event.preventDefault();
     const list = {
@@ -15,8 +16,11 @@ export default function AddTodos(props) {
       title: enteredTitle,
     };
     props.onAddLists(list);
+    // setting input to empty
     setEnteredTitle('');
   }
+
+
   return (
     <form onSubmit={submitHandler}>
       <header className="container1">

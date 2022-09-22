@@ -5,11 +5,13 @@ export default function Todo(props) {
   const [updateTitle, setUpdatedTitle] = useState('');
   const [taskcomplet, setTaskComplet] = useState(props.completed);
 
+  // setting the taskcomplete function
   const taskCompleted = (prev) => {
     setTaskComplet((prev) => !prev);
     console.log(taskcomplet);
   };
 
+  // getting the value of todo
   const titleChangeHandler = (e) => {
     setUpdatedTitle(e.target.value);
   };
@@ -28,17 +30,22 @@ export default function Todo(props) {
     SetIsEditing(false);
   };
 
+  // function for editing to true
   const editHandler = () => {
     SetIsEditing(true);
   };
+
+  // function for editing to true
   const stopEditingHandler = () => {
     SetIsEditing(false);
   };
 
+  // Deleting todo
   const deleteHandler = () => {
     const deleteAlbum = {
       id: props.id,
     };
+    // passing through props
     props.onDelete(deleteAlbum);
   };
 
@@ -61,6 +68,7 @@ export default function Todo(props) {
         )}
 
         <div className="buttons">
+          {/* task complete button  */}
           {!isEditing ? (
             <button className="complete" onClick={taskCompleted}>
               <i
@@ -74,6 +82,8 @@ export default function Todo(props) {
               <i className="fa-regular fa-square-check"></i>
             </button>
           )}
+
+          {/* edit button */}
           {isEditing ? (
             <button className=" complete editing" onClick={stopEditingHandler}>
               <i className="fa-solid fa-pen-to-square"></i>
@@ -83,6 +93,8 @@ export default function Todo(props) {
               <i className="fa-regular fa-pen-to-square"></i>
             </button>
           )}
+
+          {/* delete button */}
           <button className="remove" onClick={deleteHandler}>
             <i className="fa-regular fa-trash-can"></i>
           </button>
