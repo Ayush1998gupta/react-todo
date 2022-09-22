@@ -10,6 +10,8 @@ export default function AddTodos(props) {
   function submitHandler(event) {
     event.preventDefault();
     const list = {
+      userId: 1,
+      completed:false,
       title: enteredTitle,
     };
     props.onAddLists(list);

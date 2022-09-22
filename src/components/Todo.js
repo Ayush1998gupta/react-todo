@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 export default function Todo(props) {
   const [isEditing, SetIsEditing] = useState(false);
   const [updateTitle, setUpdatedTitle] = useState('');
+  const [taskcomplet, setTaskComplet] = useState(props.completed);
+
+  const taskCompleted = (prev) => {
+    setTaskComplet((prev) => !prev);
+    console.log(taskcomplet);
+  };
 
   const titleChangeHandler = (e) => {
     setUpdatedTitle(e.target.value);
@@ -35,6 +41,7 @@ export default function Todo(props) {
     };
     props.onDelete(deleteAlbum);
   };
+
   return (
     <React.Fragment>
       <li>
@@ -55,10 +62,10 @@ export default function Todo(props) {
 
         <div className="buttons">
           {!isEditing ? (
-            <button className="complete">
+            <button className="complete" onClick={taskCompleted}>
               <i
                 className={`${
-                  !props.completed ? 'fa-regular' : 'fa-solid'
+                  !taskcomplet ? 'fa-regular' : 'fa-solid'
                 } fa-circle-check`}
               ></i>
             </button>
