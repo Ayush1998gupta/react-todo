@@ -85,7 +85,10 @@ function App() {
         }
       );
       const data = await response.json();
-      handleUpdate(data.id - 1, data);
+      const index = lists.findIndex(p => {
+        return p.id === data.id;
+      });
+      handleUpdate(index, data);
     } catch (error) {
       setError(error.message);
     }
@@ -100,7 +103,6 @@ function App() {
   // content for display the fetch items
   let content = <p>Found no Albums.</p>;
 
-  
   if (lists.length > 0) {
     content = (
       <TodoList
